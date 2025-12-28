@@ -14,7 +14,8 @@ def home():
 @app.route('/webhook', methods=['POST'])
 def webhook():
     try:
-        data = request.get_json()
+        # Gelen veriyi al (Content-Type kontrolünü atla)
+        data = request.get_json(force=True)
         
         if data.get('secret') != SECRET_KEY:
             return jsonify({"error": "Unauthorized"}), 401
